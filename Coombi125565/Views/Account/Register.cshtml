@@ -1,0 +1,61 @@
+﻿@model Coombi125565.Models.RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>Create a new account.</h2>
+</hgroup>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>Registration Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ConfirmPassword)
+                @Html.PasswordFor(m => m.ConfirmPassword)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Lastname)
+                @Html.TextBoxFor(m => m.Lastname)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Firstname)
+                @Html.TextBoxFor(m => m.Firstname)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Department)
+                @Html.TextBoxFor(m => m.Department)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.BirthDate)
+                @Html.TextBoxFor(m => m.BirthDate)
+            </li>
+            <li>
+                @Html.DropDownListFor(m => m.Gender,
+                from Coombi125565.Models.GenderType gender in Enum.GetValues(typeof(Coombi125565.Models.GenderType))
+                    select new SelectListItem() { Text = gender.ToString(), Value = gender.ToString() }
+                )
+            </li>
+            <li>
+                @Html.DropDownListFor(m => m.Title,
+                from Coombi125565.Models.TitleType title in Enum.GetValues(typeof(Coombi125565.Models.TitleType))
+                    select new SelectListItem() { Text = title.ToString(), Value = title.ToString() }
+                )
+            </li>
+        </ol>
+        <input type="submit" value="Register" />
+    </fieldset>
+}

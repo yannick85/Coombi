@@ -1,0 +1,10 @@
+﻿@{
+    Layout = null;
+}
+@model Coombi125565.Models.CommentModel
+
+<div class="one-comment one-item">
+    <div class="comment-content">@Model.Content</div>
+    <a class="delete" href="post/deletecomment" data-id="@Model.CommentId" >Delete</a>
+    <div class="comment-owner">@Model.User.LastName @Model.User.FirstName, @Model.Time</div>
+</div>

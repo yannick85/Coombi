@@ -1,0 +1,116 @@
+﻿@font-face { font-family: "Sui"; 	src: url('font/segoeui.ttf'); }
+@font-face { font-family: "SuiLight"; 	src: url('font/segoeuil.ttf'); }
+@font-face { font-family: "SuiSemilight"; 	src: url('font/segoeuisl.ttf'); }
+
+body {
+    font-family: "Sui"
+}
+
+h2 {
+margin-bottom: 0.5em;
+}
+
+.post {
+    padding: 5px;
+    width: 450px;
+    border: 2px black solid;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.post .post-user{
+    color: #35AADC;
+    padding: 5px;
+    border-bottom: 1px black solid;
+}
+
+.post .post-content{
+    color: #005BA0 ;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px black solid;
+}
+
+.post .post-like{
+    float: right;
+    padding: 5px;
+}
+
+.post .post-comment {
+    margin-left: 15px;
+}
+
+.post .post-comment .newcomment-content {
+    resize: none;
+    width: 370px;
+}
+
+.post .post-comment .newcomment {
+    font-size: 14px;
+}
+
+.comments .one-comment {
+    border: 1px black solid;
+    border-top: 0px;
+    padding: 5px;
+}
+
+.comments .one-comment .comment-content {
+    border-bottom: 1px black solid;
+}
+
+.comments .one-comment .comment-owner {
+
+}
+
+.post > .delete, .comments .one-comment .delete {
+    float: right;
+}
+
+#right {
+    float: right;
+}
+
+.post-new {
+    width: 450px;
+}
+
+.post-new textarea{
+    width: 400px;
+    resize: none;
+    height: 100px;
+}
+
+#coombi-title a{
+    font-size: 40px;
+    text-decoration: none;
+    color: #A3D8F0;
+    font-family: "SuiLight";
+}
+
+#coombi-title .coombi-first-o{
+    color: #005BA0;
+    font-family: "Sui";
+}
+
+#coombi-title  .coombi-second-o{
+    color: #35AADC;
+    font-family: "SuiSemiLight";
+}
+
+ul#menu li a {
+    color: #35AADC;
+}
+
+footer {
+    background : #0469AB;
+}
+
+#body {
+    background: rgba(4,105,171,0.2);
+}
+
+table th {
+    padding: 0.5em;
+}

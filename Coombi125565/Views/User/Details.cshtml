@@ -1,0 +1,66 @@
+﻿@model Coombi125565.Models.DetailsUser
+@{
+    ViewBag.Title = "Details " + Model.User.LastName +" "+ Model.User.FirstName;
+}
+
+<h2>Details - @Model.User.LastName @Model.User.FirstName</h2>
+<p>
+@if (ViewBag.isFollowed) {
+    @Html.ActionLink("Unfollow", "Unfollow", new {id=Model.User.UserId })
+} else {
+    @Html.ActionLink("Follow", "Follow", new {id=Model.User.UserId })
+}
+<br />
+    
+</p>
+<div id="right" style="margin-right: 75px;">
+    <span style="font-weight: bold">@Model.User.Title @Model.User.LastName @Model.User.FirstName</span><br />
+    Gender : @Model.User.Gender<br />
+    Department : @Model.User.Department<br />
+    Birth Date : @Model.User.BirthDate<br />
+    Has joined Coombi the @Model.User.CreationTime
+</div>
+@foreach (var item in Model.Posts) {
+    <div class="post one-item">
+        @if (item.UserId == WebSecurity.CurrentUserId)
+        {
+            <a class="delete" data-id="@item.PostId" href="/post/delete">Delete</a>
+        }
+        <div class="post-content">
+            @Html.DisplayFor(modelItem => item.Content)
+        </div>
+        <div class="post-like">
+            <span class="txt-like"> Likes : <span class="nb-like">@item.Likes.Count</span></span>
+            <span class="update-like">
+                @if (item.Likes.FindAll(l => l.UserId == WebSecurity.CurrentUserId).Count > 0)
+                {
+                    <a class="unlike" href="#" data-id="@item.PostId">Unlike</a>
+                }
+                else
+                {
+                    <a class="newlike" href="#" data-id="@item.PostId">Like</a>
+                }
+            </span>
+        </div>
+        <div class="post-user">
+            @Html.DisplayFor(modelItem => item.User.LastName) @Html.DisplayFor(modelItem => item.User.FirstName), @Html.DisplayFor(modelItem => item.Time)
+        </div>
+        <div class="post-comment">
+            <div class="comments">
+            @foreach(Coombi125565.Models.CommentModel comment in item.Comments) {
+                <div class="one-comment one-item">
+                    <div class="comment-content">@comment.Content</div>
+                    @if (comment.UserId == WebSecurity.CurrentUserId) {
+                        <a class="delete" href="/post/deletecomment" data-id="@comment.CommentId" >Delete</a>
+                    }
+                    <div class="comment-owner">@comment.User.LastName @comment.User.FirstName, @comment.Time</div>
+                </div>
+            }
+            </div>
+            <div class="newcomment-zone">
+                <textarea placeholder="Write a new comment" class="newcomment-content" name="Content"></textarea>
+                <a class="newcomment" href="#" data-id="@item.PostId">Add</a>
+            </div>
+        </div>
+    </div>
+}

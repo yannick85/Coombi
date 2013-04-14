@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Coombi125565.Models.GroupModel>
+
+@{
+    ViewBag.Title = "Groups";
+}
+
+<h2>Groups</h2>
+
+<p>
+    @Html.ActionLink("Create a new group", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Group Name
+        </th>
+        <th>
+            Owner
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr class="one-item">
+        <td>
+            @Html.ActionLink(item.Name, "Details", new { id=item.GroupId })
+            
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Owner.LastName) @Html.DisplayFor(modelItem => item.Owner.FirstName)
+        </td>
+        <td>
+            @if(item.OwnerId == WebSecurity.CurrentUserId) {
+                @Html.ActionLink("Manage members", "Manage", new { id=item.GroupId })
+                <a class="delete" data-id="@item.GroupId" href="group/delete">Delete</a>
+            }
+        </td>
+    </tr>
+}
+
+</table>

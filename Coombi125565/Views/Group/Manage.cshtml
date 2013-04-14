@@ -1,0 +1,32 @@
+﻿@model Coombi125565.Models.ManageUsersGroup
+
+@{
+    ViewBag.Title = ("Manage members for " + Model.Group.Name);
+}
+
+<h2>@("Manage members for " + Model.Group.Name)</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    
+    foreach (Coombi125565.Models.UserProfile user in Model.Users) {
+        if (Model.Members.Contains(user.UserId))
+        {
+            <input type="checkbox" name="Members" value="@user.UserId" checked="checked" /><span>@user.LastName @user.FirstName</span><br />
+        }
+        else
+        {
+            <input type="checkbox" name="Members" value="@user.UserId" /><span>@user.LastName @user.FirstName</span><br />
+        } 
+    }
+    <input type="submit" value="Submit"/>
+}
+
+<div>
+    @Html.ActionLink(Model.Group.Name + " page", "Details", new {id = Model.Group.GroupId})<br />
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

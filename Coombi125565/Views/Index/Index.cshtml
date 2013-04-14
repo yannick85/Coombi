@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Coombi125565.Models.PostModel>
+
+@{
+    ViewBag.Title = "Timeline";
+}
+
+<h2>Timeline</h2>
+<div id="right">
+@using (Html.BeginForm("Create", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    <div class="post-new">
+        <div class="editor-field">
+            <textarea id="Content" placeholder="Write a new post" name="Content" data-val-required="Content is required." data-val-length-max="142" data-val-length="142 characters maximum" data-val="true"></textarea>
+            <div>Add a picture (.jpeg, .jpg)
+            <input type="file" name="Picture" id="Picture" /></div>
+        </div>
+        <p>
+            <input type="submit" value="Submit" />
+        </p>
+    </div>
+}
+</div>
+@foreach (var item in Model) {
+    <div class="post one-item">
+        @if (item.UserId == WebSecurity.CurrentUserId)
+        {
+            <a class="delete" data-id="@item.PostId" href="/post/delete">Delete</a>
+        }
+        <div class="post-content">
+            @Html.DisplayFor(modelItem => item.Content)
+        </div>
+        @if(item.Picture != null){
+            <div class="post-picture">
+                <a href="@item.Picture">
+                    @{ 
+                        System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(item.Picture);
+                        String[] tab = item.Picture.Split("/".ToCharArray());
+                        String fileString = (String) tab.GetValue(tab.Length - 1);
+                        tab[tab.Length - 1] = null;
+                        String baseString = String.Join("/", tab);
+                    }
+                    <img src="@(  baseString + "thumb" + fileString)"/>
+                </a>
+            </div>
+        }
+        <div class="post-like">
+            <span class="txt-like"> Likes : <span class="nb-like">@item.Likes.Count</span></span>
+            <span class="update-like">
+                @if (item.Likes.FindAll(l => l.UserId == WebSecurity.CurrentUserId).Count > 0)
+                {
+                    <a class="unlike" href="#" data-id="@item.PostId">Unlike</a>
+                }
+                else
+                {
+                    <a class="newlike" href="#" data-id="@item.PostId">Like</a>
+                }
+            </span>
+        </div>
+        <div class="post-user">
+            @Html.DisplayFor(modelItem => item.User.LastName) @Html.DisplayFor(modelItem => item.User.FirstName), @Html.DisplayFor(modelItem => item.Time)
+        </div>
+        <div class="post-comment">
+            <div class="comments">
+            @foreach(Coombi125565.Models.CommentModel comment in item.Comments) {
+                <div class="one-comment one-item">
+                    <div class="comment-content">@comment.Content</div>
+                    @if (comment.UserId == WebSecurity.CurrentUserId) {
+                        <a class="delete" href="/post/deletecomment" data-id="@comment.CommentId" >Delete</a>
+                    }
+                    <div class="comment-owner">@comment.User.LastName @comment.User.FirstName, @comment.Time</div>
+                </div>
+            }
+            </div>
+            <div class="newcomment-zone">
+                <textarea placeholder="Write a new comment" class="newcomment-content" name="Content"></textarea>
+                <a class="newcomment" href="#" data-id="@item.PostId">Add</a>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.Count() == 0) {
+    <p>No posts<br />You can write you own posts.<br /><a href="/User">Or follow another user.</a></p>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

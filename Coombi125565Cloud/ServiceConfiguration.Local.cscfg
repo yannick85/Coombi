@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Coombi125565Cloud" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2012-10.1.8">
+  <Role name="Coombi125565Web">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="StorageCS" value="DefaultEndpointsProtocol=https;AccountName=portalvhdszfh2g941j9855;AccountKey=ZQfpTDPJnR8GQqfGOrIBKjHrSNFHC3CdPQAyEYNO+1GM3HksBpJZ9XJEGGy13W9fl266G7//z/bSMTvtpvdjiw==" />
+    </ConfigurationSettings>
+  </Role>
+  <Role name="Coombi125565Worker">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="StorageCS" value="DefaultEndpointsProtocol=https;AccountName=portalvhdszfh2g941j9855;AccountKey=ZQfpTDPJnR8GQqfGOrIBKjHrSNFHC3CdPQAyEYNO+1GM3HksBpJZ9XJEGGy13W9fl266G7//z/bSMTvtpvdjiw==" />
+    </ConfigurationSettings>
+  </Role>
+</ServiceConfiguration>
